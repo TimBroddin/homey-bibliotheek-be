@@ -1,0 +1,105 @@
+{
+  "pair": {
+    "login": {
+      "title": "Inloggen bij Bibliotheek.be",
+      "hint": "Voer je bibliotheek.be gegevens in om je bibliotheekaccount te verbinden"
+    },
+    "list_users": {
+      "title": "Selecteer gebruikers om toe te voegen",
+      "subtitle": "Gebruikers van je bibliotheek.be account"
+    }
+  },
+  "settings": {
+    "poll_interval": "Updateinterval (minuten)",
+    "poll_interval_hint": "Hoe vaak de uitleendata gecontroleerd wordt",
+    "warning_threshold": "Waarschuwingsdrempel (dagen)",
+    "warning_threshold_hint": "Waarschuwing wanneer uitleningen zoveel dagen of minder resten"
+  },
+  "capability": {
+    "days_remaining": {
+      "title": "Resterende Dagen"
+    },
+    "loan_count": {
+      "title": "Totaal Uitleningen"
+    },
+    "reservation_count": {
+      "title": "Reserveringen"
+    },
+    "loans_expiring_soon": {
+      "title": "Binnenkort Vervallend"
+    },
+    "some_not_extendable": {
+      "title": "Heeft Niet-Verlengbare"
+    },
+    "loans_summary": {
+      "title": "Uitleningen Overzicht"
+    },
+    "user_days_remaining": {
+      "title": "Resterende Dagen"
+    },
+    "user_loan_count": {
+      "title": "Totaal Uitleningen"
+    },
+    "user_reservation_count": {
+      "title": "Reserveringen"
+    },
+    "user_loans_expiring_soon": {
+      "title": "Binnenkort Vervallend"
+    },
+    "user_some_not_extendable": {
+      "title": "Heeft Niet-Verlengbare"
+    },
+    "user_loans_summary": {
+      "title": "Uitleningen Overzicht"
+    }
+  },
+  "flow": {
+    "triggers": {
+      "loan_expiring": {
+        "title": "Uitlening vervalt binnenkort",
+        "hint": "Wordt geactiveerd wanneer een uitlening onder de opgegeven drempel komt"
+      },
+      "loan_expired": {
+        "title": "Een uitlening is te laat",
+        "hint": "Wordt geactiveerd wanneer een uitlening te laat is"
+      },
+      "days_changed": {
+        "title": "Minimale resterende dagen gewijzigd",
+        "hint": "Wordt geactiveerd wanneer het minimum aantal resterende dagen wijzigt"
+      }
+    },
+    "conditions": {
+      "has_expiring_loans": {
+        "title": "Uitleningen vervallen binnen X dagen",
+        "hint": "Controleer of er uitleningen vervallen binnen het opgegeven aantal dagen"
+      },
+      "can_extend_all": {
+        "title": "Alle uitleningen kunnen verlengd worden",
+        "hint": "Controleer of alle huidige uitleningen verlengd kunnen worden"
+      },
+      "has_overdue_loans": {
+        "title": "Er zijn te late uitleningen",
+        "hint": "Controleer of er te late uitleningen zijn"
+      }
+    },
+    "actions": {
+      "extend_all_loans": {
+        "title": "Verleng alle verlengbare uitleningen",
+        "hint": "Verleng automatisch alle uitleningen die verlengbaar zijn"
+      },
+      "refresh_data": {
+        "title": "Bibliotheekgegevens vernieuwen",
+        "hint": "Forceer een directe vernieuwing van alle bibliotheekgegevens"
+      }
+    },
+    "tokens": {
+      "book_title": "Boektitel",
+      "days_left": "Resterende Dagen",
+      "days_overdue": "Dagen Te Laat",
+      "library_name": "Bibliotheek",
+      "user_name": "Gebruiker",
+      "days": "Dagen",
+      "loan_count": "Totaal Uitleningen"
+    }
+  }
+}

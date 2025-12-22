@@ -1,0 +1,939 @@
+{
+  "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
+  "id": "be.titansofindustry.bibliotheek",
+  "version": "1.0.0",
+  "compatibility": ">=12.3.0",
+  "sdk": 3,
+  "platforms": [
+    "local"
+  ],
+  "brandColor": "#E31937",
+  "name": {
+    "en": "Bibliotheek.be",
+    "nl": "Bibliotheek.be"
+  },
+  "description": {
+    "en": "Track your Belgian public library loans and get notified before they expire",
+    "nl": "Volg je uitleningen bij de Vlaamse openbare bibliotheek en krijg een melding voor ze vervallen"
+  },
+  "category": [
+    "tools"
+  ],
+  "permissions": [],
+  "images": {
+    "small": "/assets/images/small.png",
+    "large": "/assets/images/large.png",
+    "xlarge": "/assets/images/xlarge.png"
+  },
+  "author": {
+    "name": "Tim Broddin",
+    "email": "tim@brddn.com"
+  },
+  "contributing": {
+    "donate": {
+      "paypal": {
+        "username": "timbroddin"
+      }
+    }
+  },
+  "bugs": {
+    "url": "https://github.com/timbroddin/homey-bibliotheek-be/issues"
+  },
+  "source": "https://github.com/timbroddin/homey-bibliotheek-be",
+  "homepage": "https://github.com/timbroddin/homey-bibliotheek-be",
+  "support": "mailto:tim@broddin.be",
+  "tags": {
+    "en": [
+      "library",
+      "books",
+      "loans",
+      "belgium",
+      "bibliotheek"
+    ],
+    "nl": [
+      "bibliotheek",
+      "boeken",
+      "uitleningen",
+      "belgie"
+    ]
+  },
+  "flow": {
+    "triggers": [
+      {
+        "id": "days_changed",
+        "title": {
+          "en": "Minimum days remaining changed",
+          "nl": "Minimale resterende dagen gewijzigd"
+        },
+        "hint": {
+          "en": "Triggers when the minimum days remaining across all loans changes",
+          "nl": "Wordt geactiveerd wanneer het minimum aantal resterende dagen wijzigt"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=library-account"
+          }
+        ],
+        "tokens": [
+          {
+            "type": "number",
+            "name": "days",
+            "title": {
+              "en": "Days",
+              "nl": "Dagen"
+            },
+            "example": 7
+          },
+          {
+            "type": "number",
+            "name": "loan_count",
+            "title": {
+              "en": "Total Loans",
+              "nl": "Totaal uitleningen"
+            },
+            "example": 5
+          }
+        ]
+      },
+      {
+        "id": "loan_expired",
+        "title": {
+          "en": "A loan is overdue",
+          "nl": "Een uitlening is te laat"
+        },
+        "hint": {
+          "en": "Triggers when any loan becomes overdue (days remaining < 0)",
+          "nl": "Wordt geactiveerd wanneer een uitlening te laat is"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=library-account"
+          }
+        ],
+        "tokens": [
+          {
+            "type": "string",
+            "name": "book_title",
+            "title": {
+              "en": "Book Title",
+              "nl": "Boektitel"
+            },
+            "example": {
+              "en": "Harry Potter",
+              "nl": "Harry Potter"
+            }
+          },
+          {
+            "type": "number",
+            "name": "days_overdue",
+            "title": {
+              "en": "Days Overdue",
+              "nl": "Dagen te laat"
+            },
+            "example": 2
+          },
+          {
+            "type": "string",
+            "name": "library_name",
+            "title": {
+              "en": "Library",
+              "nl": "Bibliotheek"
+            },
+            "example": {
+              "en": "Gent",
+              "nl": "Gent"
+            }
+          }
+        ]
+      },
+      {
+        "id": "loan_expiring",
+        "title": {
+          "en": "Loan is expiring soon",
+          "nl": "Uitlening vervalt binnenkort"
+        },
+        "titleFormatted": {
+          "en": "A loan has [[days]] or fewer days remaining",
+          "nl": "Een uitlening heeft nog [[days]] dagen of minder"
+        },
+        "hint": {
+          "en": "Triggers when any loan drops below the specified days threshold",
+          "nl": "Wordt geactiveerd wanneer een uitlening onder de opgegeven drempel komt"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=library-account"
+          },
+          {
+            "type": "number",
+            "name": "days",
+            "title": {
+              "en": "Days",
+              "nl": "Dagen"
+            },
+            "min": 1,
+            "max": 30,
+            "step": 1
+          }
+        ],
+        "tokens": [
+          {
+            "type": "string",
+            "name": "book_title",
+            "title": {
+              "en": "Book Title",
+              "nl": "Boektitel"
+            },
+            "example": {
+              "en": "Harry Potter",
+              "nl": "Harry Potter"
+            }
+          },
+          {
+            "type": "number",
+            "name": "days_left",
+            "title": {
+              "en": "Days Left",
+              "nl": "Resterende dagen"
+            },
+            "example": 3
+          },
+          {
+            "type": "string",
+            "name": "library_name",
+            "title": {
+              "en": "Library",
+              "nl": "Bibliotheek"
+            },
+            "example": {
+              "en": "Gent",
+              "nl": "Gent"
+            }
+          },
+          {
+            "type": "string",
+            "name": "user_name",
+            "title": {
+              "en": "User",
+              "nl": "Gebruiker"
+            },
+            "example": {
+              "en": "John Doe",
+              "nl": "Jan Jansen"
+            }
+          }
+        ]
+      },
+      {
+        "id": "user_loan_expiring",
+        "title": {
+          "en": "A book is expiring soon",
+          "nl": "Een boek vervalt binnenkort"
+        },
+        "titleFormatted": {
+          "en": "A book has [[days]] or fewer days remaining",
+          "nl": "Een boek heeft nog [[days]] dagen of minder"
+        },
+        "hint": {
+          "en": "Triggers when a book for this user drops below the specified days",
+          "nl": "Wordt geactiveerd wanneer een boek voor deze gebruiker onder de drempel komt"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=library-user"
+          },
+          {
+            "type": "number",
+            "name": "days",
+            "title": {
+              "en": "Days",
+              "nl": "Dagen"
+            },
+            "min": 1,
+            "max": 30,
+            "step": 1
+          }
+        ],
+        "tokens": [
+          {
+            "type": "string",
+            "name": "book_title",
+            "title": {
+              "en": "Book Title",
+              "nl": "Boektitel"
+            },
+            "example": {
+              "en": "Harry Potter",
+              "nl": "Harry Potter"
+            }
+          },
+          {
+            "type": "number",
+            "name": "days_left",
+            "title": {
+              "en": "Days Left",
+              "nl": "Resterende dagen"
+            },
+            "example": 3
+          }
+        ]
+      }
+    ],
+    "conditions": [
+      {
+        "id": "can_extend_all",
+        "title": {
+          "en": "All loans !{{can|cannot}} be extended",
+          "nl": "Alle uitleningen !{{kunnen|kunnen niet}} verlengd worden"
+        },
+        "hint": {
+          "en": "Check if all current loans can be extended",
+          "nl": "Controleer of alle huidige uitleningen verlengd kunnen worden"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=library-account"
+          }
+        ]
+      },
+      {
+        "id": "has_expiring_loans",
+        "title": {
+          "en": "Loans !{{are|aren't}} expiring within [[days]] days",
+          "nl": "Uitleningen !{{vervallen|vervallen niet}} binnen [[days]] dagen"
+        },
+        "titleFormatted": {
+          "en": "Loans !{{are|aren't}} expiring within [[days]] days",
+          "nl": "Uitleningen !{{vervallen|vervallen niet}} binnen [[days]] dagen"
+        },
+        "hint": {
+          "en": "Check if any loans are expiring within the specified number of days",
+          "nl": "Controleer of er uitleningen vervallen binnen het opgegeven aantal dagen"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=library-account"
+          },
+          {
+            "type": "number",
+            "name": "days",
+            "title": {
+              "en": "Days",
+              "nl": "Dagen"
+            },
+            "min": 1,
+            "max": 30,
+            "step": 1
+          }
+        ]
+      },
+      {
+        "id": "has_overdue_loans",
+        "title": {
+          "en": "There !{{are|aren't}} overdue loans",
+          "nl": "Er !{{zijn|zijn geen}} te late uitleningen"
+        },
+        "hint": {
+          "en": "Check if there are any overdue loans (days remaining < 0)",
+          "nl": "Controleer of er te late uitleningen zijn (resterende dagen < 0)"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=library-account"
+          }
+        ]
+      },
+      {
+        "id": "user_has_expiring_loans",
+        "title": {
+          "en": "This user !{{has|doesn't have}} books expiring within [[days]] days",
+          "nl": "Deze gebruiker !{{heeft|heeft geen}} boeken die vervallen binnen [[days]] dagen"
+        },
+        "titleFormatted": {
+          "en": "This user !{{has|doesn't have}} books expiring within [[days]] days",
+          "nl": "Deze gebruiker !{{heeft|heeft geen}} boeken die vervallen binnen [[days]] dagen"
+        },
+        "hint": {
+          "en": "Check if this user has books expiring within the specified days",
+          "nl": "Controleer of deze gebruiker boeken heeft die vervallen binnen het aantal dagen"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=library-user"
+          },
+          {
+            "type": "number",
+            "name": "days",
+            "title": {
+              "en": "Days",
+              "nl": "Dagen"
+            },
+            "min": 1,
+            "max": 30,
+            "step": 1
+          }
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "id": "extend_all_loans",
+        "title": {
+          "en": "Extend all eligible loans",
+          "nl": "Verleng alle verlengbare uitleningen"
+        },
+        "titleFormatted": {
+          "en": "Extend loans with [[max_days]] or fewer days remaining",
+          "nl": "Verleng uitleningen met [[max_days]] dagen of minder"
+        },
+        "hint": {
+          "en": "Automatically extend all loans that can be extended and have the specified days or fewer remaining",
+          "nl": "Verleng automatisch alle uitleningen die verlengbaar zijn en het opgegeven aantal dagen of minder resten"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=library-account"
+          },
+          {
+            "type": "number",
+            "name": "max_days",
+            "title": {
+              "en": "Maximum days remaining",
+              "nl": "Maximum resterende dagen"
+            },
+            "min": 1,
+            "max": 30,
+            "step": 1
+          }
+        ]
+      },
+      {
+        "id": "refresh_data",
+        "title": {
+          "en": "Refresh library data",
+          "nl": "Bibliotheekgegevens vernieuwen"
+        },
+        "hint": {
+          "en": "Force an immediate refresh of all library data",
+          "nl": "Forceer een directe vernieuwing van alle bibliotheekgegevens"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=library-account"
+          }
+        ]
+      },
+      {
+        "id": "user_extend_loans",
+        "title": {
+          "en": "Extend this user's loans",
+          "nl": "Verleng de boeken van deze gebruiker"
+        },
+        "titleFormatted": {
+          "en": "Extend books with [[max_days]] or fewer days remaining",
+          "nl": "Verleng boeken met [[max_days]] dagen of minder"
+        },
+        "hint": {
+          "en": "Extend all extendable books for this user that are below the threshold",
+          "nl": "Verleng alle verlengbare boeken voor deze gebruiker onder de drempel"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=library-user"
+          },
+          {
+            "type": "number",
+            "name": "max_days",
+            "title": {
+              "en": "Maximum days remaining",
+              "nl": "Maximum resterende dagen"
+            },
+            "min": 1,
+            "max": 30,
+            "step": 1
+          }
+        ]
+      }
+    ]
+  },
+  "drivers": [
+    {
+      "name": {
+        "en": "Library Account",
+        "nl": "Bibliotheekaccount"
+      },
+      "class": "other",
+      "capabilities": [
+        "days_remaining",
+        "loan_count",
+        "reservation_count",
+        "loans_expiring_soon",
+        "some_not_extendable"
+      ],
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "images": {
+        "small": "/drivers/library-account/assets/images/small.png",
+        "large": "/drivers/library-account/assets/images/large.png",
+        "xlarge": "/drivers/library-account/assets/images/xlarge.png"
+      },
+      "pair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "../assets/icon.svg",
+            "title": {
+              "en": "Login to Bibliotheek.be",
+              "nl": "Inloggen bij Bibliotheek.be"
+            },
+            "usernameLabel": {
+              "en": "E-mail address",
+              "nl": "E-mailadres"
+            },
+            "usernamePlaceholder": {
+              "en": "your@email.com",
+              "nl": "jouw@email.com"
+            },
+            "passwordLabel": {
+              "en": "Password",
+              "nl": "Wachtwoord"
+            },
+            "passwordPlaceholder": {
+              "en": "Password",
+              "nl": "Wachtwoord"
+            }
+          }
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "../assets/icon.svg",
+            "title": {
+              "en": "Re-authenticate with Bibliotheek.be",
+              "nl": "Opnieuw inloggen bij Bibliotheek.be"
+            },
+            "usernameLabel": {
+              "en": "E-mail address",
+              "nl": "E-mailadres"
+            },
+            "passwordLabel": {
+              "en": "Password",
+              "nl": "Wachtwoord"
+            }
+          }
+        }
+      ],
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Polling",
+            "nl": "Polling"
+          },
+          "children": [
+            {
+              "id": "poll_interval",
+              "type": "number",
+              "label": {
+                "en": "Update interval (minutes)",
+                "nl": "Updateinterval (minuten)"
+              },
+              "hint": {
+                "en": "How often to check for new loan data",
+                "nl": "Hoe vaak de uitleendata gecontroleerd wordt"
+              },
+              "value": 30,
+              "min": 15,
+              "max": 1440
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Notifications",
+            "nl": "Meldingen"
+          },
+          "children": [
+            {
+              "id": "warning_threshold",
+              "type": "number",
+              "label": {
+                "en": "Warning threshold (days)",
+                "nl": "Waarschuwingsdrempel (dagen)"
+              },
+              "hint": {
+                "en": "Trigger warning when loans have this many days or fewer remaining",
+                "nl": "Waarschuwing wanneer uitleningen zoveel dagen of minder resten"
+              },
+              "value": 7,
+              "min": 1,
+              "max": 30
+            }
+          ]
+        }
+      ],
+      "id": "library-account"
+    },
+    {
+      "name": {
+        "en": "Library User",
+        "nl": "Bibliotheekgebruiker"
+      },
+      "class": "other",
+      "capabilities": [
+        "user_days_remaining",
+        "user_loan_count",
+        "user_reservation_count",
+        "user_loans_expiring_soon",
+        "user_some_not_extendable"
+      ],
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "images": {
+        "small": "/drivers/library-user/assets/images/small.png",
+        "large": "/drivers/library-user/assets/images/large.png",
+        "xlarge": "/drivers/library-user/assets/images/xlarge.png"
+      },
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          },
+          "options": {
+            "title": {
+              "en": "Select users to add",
+              "nl": "Selecteer gebruikers om toe te voegen"
+            },
+            "subtitle": {
+              "en": "Users from your bibliotheek.be account",
+              "nl": "Gebruikers van je bibliotheek.be account"
+            }
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "User Info",
+            "nl": "Gebruikersinfo"
+          },
+          "children": [
+            {
+              "id": "barcode",
+              "type": "label",
+              "label": {
+                "en": "Library Card",
+                "nl": "Bibliotheekkaart"
+              },
+              "value": ""
+            },
+            {
+              "id": "library_name",
+              "type": "label",
+              "label": {
+                "en": "Library",
+                "nl": "Bibliotheek"
+              },
+              "value": ""
+            }
+          ]
+        }
+      ],
+      "id": "library-user"
+    }
+  ],
+  "widgets": {
+    "loans-overview": {
+      "name": {
+        "en": "Loans Overview",
+        "nl": "Uitleningen overzicht"
+      },
+      "devices": {
+        "type": "app",
+        "singular": false
+      },
+      "settings": [
+        {
+          "id": "size",
+          "type": "dropdown",
+          "title": {
+            "en": "Widget size",
+            "nl": "Widgetgrootte"
+          },
+          "value": "medium",
+          "values": [
+            {
+              "id": "medium",
+              "title": {
+                "en": "Medium",
+                "nl": "Gemiddeld"
+              }
+            },
+            {
+              "id": "large",
+              "title": {
+                "en": "Large",
+                "nl": "Groot"
+              }
+            }
+          ]
+        }
+      ],
+      "height": "75%",
+      "api": {
+        "getLoans": {
+          "method": "GET",
+          "path": "/loans"
+        }
+      },
+      "id": "loans-overview"
+    }
+  },
+  "capabilities": {
+    "days_remaining": {
+      "type": "number",
+      "title": {
+        "en": "Days Remaining",
+        "nl": "Resterende dagen"
+      },
+      "getable": true,
+      "setable": false,
+      "units": {
+        "en": "days",
+        "nl": "dagen"
+      },
+      "uiComponent": "sensor",
+      "icon": "/assets/capabilities/calendar.svg",
+      "insights": true,
+      "min": -30,
+      "max": 60,
+      "step": 1,
+      "decimals": 0
+    },
+    "loan_count": {
+      "type": "number",
+      "title": {
+        "en": "Total Loans",
+        "nl": "Totaal uitleningen"
+      },
+      "getable": true,
+      "setable": false,
+      "units": {
+        "en": "items",
+        "nl": "items"
+      },
+      "uiComponent": "sensor",
+      "icon": "/assets/capabilities/book.svg",
+      "insights": true,
+      "min": 0,
+      "max": 200,
+      "step": 1,
+      "decimals": 0
+    },
+    "loans_expiring_soon": {
+      "type": "number",
+      "title": {
+        "en": "Expiring Soon",
+        "nl": "Binnenkort vervallend"
+      },
+      "getable": true,
+      "setable": false,
+      "units": {
+        "en": "items",
+        "nl": "items"
+      },
+      "uiComponent": "sensor",
+      "icon": "/assets/capabilities/warning.svg",
+      "insights": true,
+      "min": 0,
+      "max": 200,
+      "step": 1,
+      "decimals": 0
+    },
+    "reservation_count": {
+      "type": "number",
+      "title": {
+        "en": "Reservations",
+        "nl": "Reserveringen"
+      },
+      "getable": true,
+      "setable": false,
+      "units": {
+        "en": "items",
+        "nl": "items"
+      },
+      "uiComponent": "sensor",
+      "icon": "/assets/capabilities/bookmark.svg",
+      "insights": true,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "decimals": 0
+    },
+    "some_not_extendable": {
+      "type": "boolean",
+      "title": {
+        "en": "Has Non-Extendable",
+        "nl": "Heeft niet-verlengbare"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/capabilities/lock.svg",
+      "insights": true,
+      "insightsTitleTrue": {
+        "en": "Has non-extendable loans",
+        "nl": "Heeft niet-verlengbare uitleningen"
+      },
+      "insightsTitleFalse": {
+        "en": "All loans extendable",
+        "nl": "Alle uitleningen verlengbaar"
+      }
+    },
+    "user_days_remaining": {
+      "type": "number",
+      "title": {
+        "en": "Days Remaining",
+        "nl": "Resterende dagen"
+      },
+      "getable": true,
+      "setable": false,
+      "units": {
+        "en": "days",
+        "nl": "dagen"
+      },
+      "uiComponent": "sensor",
+      "icon": "/assets/capabilities/calendar.svg",
+      "insights": true,
+      "min": -30,
+      "max": 60,
+      "step": 1,
+      "decimals": 0
+    },
+    "user_loan_count": {
+      "type": "number",
+      "title": {
+        "en": "Loans",
+        "nl": "Uitleningen"
+      },
+      "getable": true,
+      "setable": false,
+      "units": {
+        "en": "items",
+        "nl": "items"
+      },
+      "uiComponent": "sensor",
+      "icon": "/assets/capabilities/book.svg",
+      "insights": true,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "decimals": 0
+    },
+    "user_loans_expiring_soon": {
+      "type": "number",
+      "title": {
+        "en": "Expiring Soon",
+        "nl": "Binnenkort vervallend"
+      },
+      "getable": true,
+      "setable": false,
+      "units": {
+        "en": "items",
+        "nl": "items"
+      },
+      "uiComponent": "sensor",
+      "icon": "/assets/capabilities/warning.svg",
+      "insights": true,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "decimals": 0
+    },
+    "user_reservation_count": {
+      "type": "number",
+      "title": {
+        "en": "Reservations",
+        "nl": "Reserveringen"
+      },
+      "getable": true,
+      "setable": false,
+      "units": {
+        "en": "items",
+        "nl": "items"
+      },
+      "uiComponent": "sensor",
+      "icon": "/assets/capabilities/bookmark.svg",
+      "insights": true,
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "decimals": 0
+    },
+    "user_some_not_extendable": {
+      "type": "boolean",
+      "title": {
+        "en": "Has Non-Extendable",
+        "nl": "Heeft niet-verlengbare"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/capabilities/lock.svg",
+      "insights": true
+    }
+  }
+}

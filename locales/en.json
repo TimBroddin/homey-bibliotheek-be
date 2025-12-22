@@ -1,0 +1,105 @@
+{
+  "pair": {
+    "login": {
+      "title": "Login to Bibliotheek.be",
+      "hint": "Enter your bibliotheek.be credentials to connect your library account"
+    },
+    "list_users": {
+      "title": "Select users to add",
+      "subtitle": "Users from your bibliotheek.be account"
+    }
+  },
+  "settings": {
+    "poll_interval": "Update interval (minutes)",
+    "poll_interval_hint": "How often to check for new loan data",
+    "warning_threshold": "Warning threshold (days)",
+    "warning_threshold_hint": "Trigger warning when loans have this many days or fewer remaining"
+  },
+  "capability": {
+    "days_remaining": {
+      "title": "Days Remaining"
+    },
+    "loan_count": {
+      "title": "Total Loans"
+    },
+    "reservation_count": {
+      "title": "Reservations"
+    },
+    "loans_expiring_soon": {
+      "title": "Expiring Soon"
+    },
+    "some_not_extendable": {
+      "title": "Has Non-Extendable"
+    },
+    "loans_summary": {
+      "title": "Loans Summary"
+    },
+    "user_days_remaining": {
+      "title": "Days Remaining"
+    },
+    "user_loan_count": {
+      "title": "Total Loans"
+    },
+    "user_reservation_count": {
+      "title": "Reservations"
+    },
+    "user_loans_expiring_soon": {
+      "title": "Expiring Soon"
+    },
+    "user_some_not_extendable": {
+      "title": "Has Non-Extendable"
+    },
+    "user_loans_summary": {
+      "title": "Loans Summary"
+    }
+  },
+  "flow": {
+    "triggers": {
+      "loan_expiring": {
+        "title": "Loan is expiring soon",
+        "hint": "Triggers when any loan drops below the specified days threshold"
+      },
+      "loan_expired": {
+        "title": "A loan is overdue",
+        "hint": "Triggers when any loan becomes overdue"
+      },
+      "days_changed": {
+        "title": "Minimum days remaining changed",
+        "hint": "Triggers when the minimum days remaining across all loans changes"
+      }
+    },
+    "conditions": {
+      "has_expiring_loans": {
+        "title": "Loans are expiring within X days",
+        "hint": "Check if any loans are expiring within the specified number of days"
+      },
+      "can_extend_all": {
+        "title": "All loans can be extended",
+        "hint": "Check if all current loans can be extended"
+      },
+      "has_overdue_loans": {
+        "title": "There are overdue loans",
+        "hint": "Check if there are any overdue loans"
+      }
+    },
+    "actions": {
+      "extend_all_loans": {
+        "title": "Extend all eligible loans",
+        "hint": "Automatically extend all loans that can be extended"
+      },
+      "refresh_data": {
+        "title": "Refresh library data",
+        "hint": "Force an immediate refresh of all library data"
+      }
+    },
+    "tokens": {
+      "book_title": "Book Title",
+      "days_left": "Days Left",
+      "days_overdue": "Days Overdue",
+      "library_name": "Library",
+      "user_name": "User",
+      "days": "Days",
+      "loan_count": "Total Loans"
+    }
+  }
+}

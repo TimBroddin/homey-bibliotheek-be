@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1000" viewBox="0 0 1000 1000">
+  <!-- Background -->
+  <rect width="1000" height="1000" fill="#E31937"/>
+
+  <!-- User icon from Lucide, white on brand color -->
+  <g transform="translate(275, 275) scale(18.75)" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+    <circle cx="12" cy="7" r="4" />
+  </g>
+</svg>

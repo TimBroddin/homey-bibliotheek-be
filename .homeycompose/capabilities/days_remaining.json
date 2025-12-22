@@ -1,0 +1,20 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Days Remaining",
+    "nl": "Resterende dagen"
+  },
+  "getable": true,
+  "setable": false,
+  "units": {
+    "en": "days",
+    "nl": "dagen"
+  },
+  "uiComponent": "sensor",
+  "icon": "/assets/capabilities/calendar.svg",
+  "insights": true,
+  "min": -30,
+  "max": 60,
+  "step": 1,
+  "decimals": 0
+}

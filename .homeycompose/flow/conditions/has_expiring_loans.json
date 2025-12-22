@@ -1,0 +1,33 @@
+{
+  "id": "has_expiring_loans",
+  "title": {
+    "en": "Loans !{{are|aren't}} expiring within [[days]] days",
+    "nl": "Uitleningen !{{vervallen|vervallen niet}} binnen [[days]] dagen"
+  },
+  "titleFormatted": {
+    "en": "Loans !{{are|aren't}} expiring within [[days]] days",
+    "nl": "Uitleningen !{{vervallen|vervallen niet}} binnen [[days]] dagen"
+  },
+  "hint": {
+    "en": "Check if any loans are expiring within the specified number of days",
+    "nl": "Controleer of er uitleningen vervallen binnen het opgegeven aantal dagen"
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=library-account"
+    },
+    {
+      "type": "number",
+      "name": "days",
+      "title": {
+        "en": "Days",
+        "nl": "Dagen"
+      },
+      "min": 1,
+      "max": 30,
+      "step": 1
+    }
+  ]
+}

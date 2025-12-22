@@ -1,0 +1,38 @@
+{
+  "id": "days_changed",
+  "title": {
+    "en": "Minimum days remaining changed",
+    "nl": "Minimale resterende dagen gewijzigd"
+  },
+  "hint": {
+    "en": "Triggers when the minimum days remaining across all loans changes",
+    "nl": "Wordt geactiveerd wanneer het minimum aantal resterende dagen wijzigt"
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=library-account"
+    }
+  ],
+  "tokens": [
+    {
+      "type": "number",
+      "name": "days",
+      "title": {
+        "en": "Days",
+        "nl": "Dagen"
+      },
+      "example": 7
+    },
+    {
+      "type": "number",
+      "name": "loan_count",
+      "title": {
+        "en": "Total Loans",
+        "nl": "Totaal uitleningen"
+      },
+      "example": 5
+    }
+  ]
+}

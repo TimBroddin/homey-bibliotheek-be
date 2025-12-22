@@ -1,0 +1,12 @@
+{
+  "type": "boolean",
+  "title": {
+    "en": "Has Non-Extendable",
+    "nl": "Heeft niet-verlengbare"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/capabilities/lock.svg",
+  "insights": true
+}

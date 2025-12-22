@@ -1,0 +1,27 @@
+{
+  "name": "be.bibliotheek",
+  "version": "1.0.0",
+  "description": "Track your Belgian public library loans from bibliotheek.be",
+  "main": "app.js",
+  "scripts": {
+    "lint": "eslint .",
+    "test": "echo \"No tests yet\""
+  },
+  "author": {
+    "name": "Tim Broddin",
+    "email": "tim@brddn.com"
+  },
+  "license": "GPL-3.0",
+  "dependencies": {
+    "cheerio": "^1.0.0",
+    "fetch-cookie": "^3.0.1",
+    "node-fetch": "^2.7.0",
+    "tough-cookie": "^5.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

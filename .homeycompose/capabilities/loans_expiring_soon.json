@@ -1,0 +1,20 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Expiring Soon",
+    "nl": "Binnenkort vervallend"
+  },
+  "getable": true,
+  "setable": false,
+  "units": {
+    "en": "items",
+    "nl": "items"
+  },
+  "uiComponent": "sensor",
+  "icon": "/assets/capabilities/warning.svg",
+  "insights": true,
+  "min": 0,
+  "max": 200,
+  "step": 1,
+  "decimals": 0
+}

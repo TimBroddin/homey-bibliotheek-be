@@ -1,0 +1,44 @@
+{
+  "name": {
+    "en": "Loans Overview",
+    "nl": "Uitleningen overzicht"
+  },
+  "devices": {
+    "type": "app",
+    "singular": false
+  },
+  "settings": [
+    {
+      "id": "size",
+      "type": "dropdown",
+      "title": {
+        "en": "Widget size",
+        "nl": "Widgetgrootte"
+      },
+      "value": "medium",
+      "values": [
+        {
+          "id": "medium",
+          "title": {
+            "en": "Medium",
+            "nl": "Gemiddeld"
+          }
+        },
+        {
+          "id": "large",
+          "title": {
+            "en": "Large",
+            "nl": "Groot"
+          }
+        }
+      ]
+    }
+  ],
+  "height": "75%",
+  "api": {
+    "getLoans": {
+      "method": "GET",
+      "path": "/loans"
+    }
+  }
+}

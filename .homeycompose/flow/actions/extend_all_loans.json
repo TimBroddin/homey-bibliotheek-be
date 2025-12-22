@@ -1,0 +1,33 @@
+{
+  "id": "extend_all_loans",
+  "title": {
+    "en": "Extend all eligible loans",
+    "nl": "Verleng alle verlengbare uitleningen"
+  },
+  "titleFormatted": {
+    "en": "Extend loans with [[max_days]] or fewer days remaining",
+    "nl": "Verleng uitleningen met [[max_days]] dagen of minder"
+  },
+  "hint": {
+    "en": "Automatically extend all loans that can be extended and have the specified days or fewer remaining",
+    "nl": "Verleng automatisch alle uitleningen die verlengbaar zijn en het opgegeven aantal dagen of minder resten"
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=library-account"
+    },
+    {
+      "type": "number",
+      "name": "max_days",
+      "title": {
+        "en": "Maximum days remaining",
+        "nl": "Maximum resterende dagen"
+      },
+      "min": 1,
+      "max": 30,
+      "step": 1
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "type": "boolean",
+  "title": {
+    "en": "Has Non-Extendable",
+    "nl": "Heeft niet-verlengbare"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/capabilities/lock.svg",
+  "insights": true,
+  "insightsTitleTrue": {
+    "en": "Has non-extendable loans",
+    "nl": "Heeft niet-verlengbare uitleningen"
+  },
+  "insightsTitleFalse": {
+    "en": "All loans extendable",
+    "nl": "Alle uitleningen verlengbaar"
+  }
+}

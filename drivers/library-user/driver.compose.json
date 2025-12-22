@@ -1,0 +1,73 @@
+{
+  "name": {
+    "en": "Library User",
+    "nl": "Bibliotheekgebruiker"
+  },
+  "class": "other",
+  "capabilities": [
+    "user_days_remaining",
+    "user_loan_count",
+    "user_reservation_count",
+    "user_loans_expiring_soon",
+    "user_some_not_extendable"
+  ],
+  "platforms": ["local"],
+  "connectivity": ["cloud"],
+  "images": {
+    "small": "/drivers/library-user/assets/images/small.png",
+    "large": "/drivers/library-user/assets/images/large.png",
+    "xlarge": "/drivers/library-user/assets/images/xlarge.png"
+  },
+  "pair": [
+    {
+      "id": "list_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_devices"
+      },
+      "options": {
+        "title": {
+          "en": "Select users to add",
+          "nl": "Selecteer gebruikers om toe te voegen"
+        },
+        "subtitle": {
+          "en": "Users from your bibliotheek.be account",
+          "nl": "Gebruikers van je bibliotheek.be account"
+        }
+      }
+    },
+    {
+      "id": "add_devices",
+      "template": "add_devices"
+    }
+  ],
+  "settings": [
+    {
+      "type": "group",
+      "label": {
+        "en": "User Info",
+        "nl": "Gebruikersinfo"
+      },
+      "children": [
+        {
+          "id": "barcode",
+          "type": "label",
+          "label": {
+            "en": "Library Card",
+            "nl": "Bibliotheekkaart"
+          },
+          "value": ""
+        },
+        {
+          "id": "library_name",
+          "type": "label",
+          "label": {
+            "en": "Library",
+            "nl": "Bibliotheek"
+          },
+          "value": ""
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "id": "user_extend_loans",
+  "title": {
+    "en": "Extend this user's loans",
+    "nl": "Verleng de boeken van deze gebruiker"
+  },
+  "titleFormatted": {
+    "en": "Extend books with [[max_days]] or fewer days remaining",
+    "nl": "Verleng boeken met [[max_days]] dagen of minder"
+  },
+  "hint": {
+    "en": "Extend all extendable books for this user that are below the threshold",
+    "nl": "Verleng alle verlengbare boeken voor deze gebruiker onder de drempel"
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=library-user"
+    },
+    {
+      "type": "number",
+      "name": "max_days",
+      "title": {
+        "en": "Maximum days remaining",
+        "nl": "Maximum resterende dagen"
+      },
+      "min": 1,
+      "max": 30,
+      "step": 1
+    }
+  ]
+}

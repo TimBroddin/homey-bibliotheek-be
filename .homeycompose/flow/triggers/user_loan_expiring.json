@@ -1,0 +1,56 @@
+{
+  "id": "user_loan_expiring",
+  "title": {
+    "en": "A book is expiring soon",
+    "nl": "Een boek vervalt binnenkort"
+  },
+  "titleFormatted": {
+    "en": "A book has [[days]] or fewer days remaining",
+    "nl": "Een boek heeft nog [[days]] dagen of minder"
+  },
+  "hint": {
+    "en": "Triggers when a book for this user drops below the specified days",
+    "nl": "Wordt geactiveerd wanneer een boek voor deze gebruiker onder de drempel komt"
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=library-user"
+    },
+    {
+      "type": "number",
+      "name": "days",
+      "title": {
+        "en": "Days",
+        "nl": "Dagen"
+      },
+      "min": 1,
+      "max": 30,
+      "step": 1
+    }
+  ],
+  "tokens": [
+    {
+      "type": "string",
+      "name": "book_title",
+      "title": {
+        "en": "Book Title",
+        "nl": "Boektitel"
+      },
+      "example": {
+        "en": "Harry Potter",
+        "nl": "Harry Potter"
+      }
+    },
+    {
+      "type": "number",
+      "name": "days_left",
+      "title": {
+        "en": "Days Left",
+        "nl": "Resterende dagen"
+      },
+      "example": 3
+    }
+  ]
+}

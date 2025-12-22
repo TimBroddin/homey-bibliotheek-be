@@ -1,0 +1,3 @@
+Track your Belgian public library loans from bibliotheek.be and get notified before they expire. Monitor all your family's library cards in one place, create automations to extend loans automatically, and never pay late fees again. Add the loans overview widget to your dashboard for an at-a-glance view of all due dates with color-coded status indicators.
+
+Perfect for Belgian library users who want to stay on top of their reading lists and due dates. The app supports multiple user accounts, provides real-time loan status updates, and integrates seamlessly with Homey's flow system for smart notifications and automatic loan extensions.

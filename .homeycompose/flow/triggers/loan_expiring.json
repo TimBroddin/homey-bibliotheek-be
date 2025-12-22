@@ -1,0 +1,80 @@
+{
+  "id": "loan_expiring",
+  "title": {
+    "en": "Loan is expiring soon",
+    "nl": "Uitlening vervalt binnenkort"
+  },
+  "titleFormatted": {
+    "en": "A loan has [[days]] or fewer days remaining",
+    "nl": "Een uitlening heeft nog [[days]] dagen of minder"
+  },
+  "hint": {
+    "en": "Triggers when any loan drops below the specified days threshold",
+    "nl": "Wordt geactiveerd wanneer een uitlening onder de opgegeven drempel komt"
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=library-account"
+    },
+    {
+      "type": "number",
+      "name": "days",
+      "title": {
+        "en": "Days",
+        "nl": "Dagen"
+      },
+      "min": 1,
+      "max": 30,
+      "step": 1
+    }
+  ],
+  "tokens": [
+    {
+      "type": "string",
+      "name": "book_title",
+      "title": {
+        "en": "Book Title",
+        "nl": "Boektitel"
+      },
+      "example": {
+        "en": "Harry Potter",
+        "nl": "Harry Potter"
+      }
+    },
+    {
+      "type": "number",
+      "name": "days_left",
+      "title": {
+        "en": "Days Left",
+        "nl": "Resterende dagen"
+      },
+      "example": 3
+    },
+    {
+      "type": "string",
+      "name": "library_name",
+      "title": {
+        "en": "Library",
+        "nl": "Bibliotheek"
+      },
+      "example": {
+        "en": "Gent",
+        "nl": "Gent"
+      }
+    },
+    {
+      "type": "string",
+      "name": "user_name",
+      "title": {
+        "en": "User",
+        "nl": "Gebruiker"
+      },
+      "example": {
+        "en": "John Doe",
+        "nl": "Jan Jansen"
+      }
+    }
+  ]
+}

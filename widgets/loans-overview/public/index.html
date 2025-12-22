@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Uitleningen</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; overflow: hidden; }
+
+    body {
+      font-family: var(--homey-font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+      background: var(--homey-background-color, #fff);
+      color: var(--homey-text-color, #000);
+      font-size: var(--homey-font-size-small, 14px);
+      line-height: var(--homey-line-height-small, 20px);
+    }
+
+    .widget {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      padding: var(--homey-su-4, 16px);
+      overflow: hidden;
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: var(--homey-su-2, 8px);
+      margin-bottom: var(--homey-su-2, 8px);
+      border-bottom: var(--homey-line, 1px solid rgba(0,0,0,0.1));
+      flex-shrink: 0;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: var(--homey-su-2, 8px);
+      font-size: var(--homey-font-size-small, 14px);
+      font-weight: var(--homey-font-weight-bold, 600);
+      color: var(--homey-text-color, #000);
+    }
+
+    .header-left svg {
+      width: 18px;
+      height: 18px;
+      fill: var(--homey-color-blue, #007AFF);
+    }
+
+    .header-stats {
+      display: flex;
+      align-items: center;
+      gap: var(--homey-su-3, 12px);
+    }
+
+    .header-stat {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: var(--homey-font-size-xsmall, 12px);
+      font-weight: var(--homey-font-weight-medium, 500);
+      white-space: nowrap;
+    }
+
+    .header-stat.danger {
+      background: var(--homey-color-red, #FF3B30);
+      color: white;
+    }
+    .header-stat.warning {
+      background: var(--homey-color-orange, #FF9500);
+      color: white;
+    }
+    .header-stat.safe {
+      background: var(--homey-color-green-100, rgba(52, 199, 89, 0.12));
+      color: var(--homey-color-green, #34C759);
+    }
+
+    /* Loans list */
+    .loans-container {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      margin: 0 calc(var(--homey-su-4, 16px) * -1);
+      padding: 0 var(--homey-su-4, 16px);
+      scrollbar-width: thin;
+      scrollbar-color: var(--homey-color-mono-300, #ccc) transparent;
+    }
+
+    .loans-container::-webkit-scrollbar { width: 4px; }
+    .loans-container::-webkit-scrollbar-track { background: transparent; }
+    .loans-container::-webkit-scrollbar-thumb {
+      background: var(--homey-color-mono-300, #ccc);
+      border-radius: 2px;
+    }
+
+    .loan-group { margin-bottom: var(--homey-su-2, 8px); }
+
+    .loan-group-header {
+      font-size: var(--homey-font-size-xsmall, 12px);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--homey-text-color-light, #666);
+      padding: var(--homey-su-1, 4px) 0;
+      margin-bottom: var(--homey-su-1, 4px);
+      display: flex;
+      align-items: center;
+      gap: var(--homey-su-1, 4px);
+      font-weight: var(--homey-font-weight-medium, 500);
+    }
+
+    .loan-group-header svg {
+      width: 12px;
+      height: 12px;
+      fill: currentColor;
+      opacity: 0.6;
+    }
+
+    /* Loan card */
+    .loan {
+      display: flex;
+      gap: var(--homey-su-3, 12px);
+      padding: var(--homey-su-2, 8px) 0;
+      border-bottom: var(--homey-line, 1px solid rgba(0,0,0,0.1));
+      animation: slideIn 0.2s ease-out backwards;
+    }
+
+    .loan:last-child { border-bottom: none; }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(-4px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    /* Book cover image */
+    .loan-cover {
+      width: 36px;
+      height: 48px;
+      border-radius: var(--homey-su-1, 4px);
+      flex-shrink: 0;
+      background: var(--homey-color-mono-100, #f5f5f5);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--homey-color-mono-200, #e5e5e5);
+    }
+
+    .loan-cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .loan-cover svg {
+      width: 18px;
+      height: 18px;
+      fill: var(--homey-color-mono-400, #999);
+    }
+
+    .loan-cover img + svg {
+      display: none;
+    }
+
+    /* Days pill - inline tag style */
+    .loan-days {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: var(--homey-font-size-xsmall, 12px);
+      font-weight: var(--homey-font-weight-medium, 500);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .loan-days.overdue {
+      background: var(--homey-color-red, #FF3B30);
+      color: white;
+    }
+    .loan-days.urgent {
+      background: var(--homey-color-orange, #FF9500);
+      color: white;
+    }
+    .loan-days.normal {
+      background: var(--homey-color-green-100, rgba(52, 199, 89, 0.12));
+      color: var(--homey-color-green, #34C759);
+    }
+
+    .loan-info {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .loan-title {
+      font-size: var(--homey-font-size-small, 14px);
+      font-weight: var(--homey-font-weight-medium, 500);
+      color: var(--homey-text-color, #000);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: 1.3;
+    }
+
+    .loan-meta {
+      display: flex;
+      align-items: center;
+      gap: var(--homey-su-1, 4px);
+      font-size: var(--homey-font-size-xsmall, 12px);
+      color: var(--homey-text-color-light, #666);
+      margin-top: 2px;
+    }
+
+    .loan-author {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-style: italic;
+    }
+
+    .loan-badge {
+      font-size: 9px;
+      padding: 2px 6px;
+      border-radius: var(--homey-su-1, 4px);
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      font-weight: var(--homey-font-weight-medium, 500);
+      flex-shrink: 0;
+    }
+
+    .loan-badge.not-extendable {
+      background: var(--homey-color-red-100, rgba(255, 59, 48, 0.12));
+      color: var(--homey-color-red, #FF3B30);
+    }
+
+    /* Empty state */
+    .empty-state {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: var(--homey-su-4, 16px);
+      color: var(--homey-text-color-light, #666);
+    }
+
+    .empty-state svg {
+      width: 48px;
+      height: 48px;
+      fill: var(--homey-color-mono-300, #ccc);
+      margin-bottom: var(--homey-su-3, 12px);
+    }
+    .empty-state-title {
+      font-size: var(--homey-font-size-default, 17px);
+      font-weight: var(--homey-font-weight-medium, 500);
+      color: var(--homey-text-color, #000);
+      margin-bottom: var(--homey-su-1, 4px);
+    }
+    .empty-state-text {
+      font-size: var(--homey-font-size-small, 14px);
+      opacity: 0.7;
+    }
+
+    /* Loading state */
+    .loading {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .loading-spinner {
+      width: 24px;
+      height: 24px;
+      border: 2px solid var(--homey-color-mono-200, #e5e5e5);
+      border-top-color: var(--homey-color-blue, #007AFF);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Error state */
+    .error {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: var(--homey-su-4, 16px);
+    }
+    .error-icon {
+      width: 32px;
+      height: 32px;
+      fill: var(--homey-color-red, #FF3B30);
+      margin-bottom: var(--homey-su-3, 12px);
+    }
+    .error-text {
+      font-size: var(--homey-font-size-small, 14px);
+      color: var(--homey-text-color-light, #666);
+    }
+  </style>
+</head>
+<body>
+  <div class="widget" id="widget">
+    <div class="loading"><div class="loading-spinner"></div></div>
+  </div>
+
+  <script>
+    const bookIcon = `<svg viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>`;
+    const personIcon = `<svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>`;
+    const cdIcon = `<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 14.5c-2.49 0-4.5-2.01-4.5-4.5S9.51 7.5 12 7.5s4.5 2.01 4.5 4.5-2.01 4.5-4.5 4.5zm0-5.5c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"/></svg>`;
+    const gameIcon = `<svg viewBox="0 0 24 24"><path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H8v3H6v-3H3v-2h3V8h2v3h3v2zm4.5 2c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm4-3c-.83 0-1.5-.67-1.5-1.5S18.67 9 19.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>`;
+
+    function getTypeIcon(loanType) {
+      const type = (loanType || '').toLowerCase();
+      if (type.includes('cd') || type.includes('audio')) return cdIcon;
+      if (type.includes('game') || type.includes('spel')) return gameIcon;
+      return bookIcon;
+    }
+
+    function getDaysClass(days) {
+      if (days < 0) return 'overdue';
+      if (days <= 7) return 'urgent';
+      return 'normal';
+    }
+
+    function groupLoansByUser(loans) {
+      const groups = {};
+      for (const loan of loans) {
+        const user = loan.userName || 'Onbekend';
+        if (!groups[user]) groups[user] = [];
+        groups[user].push(loan);
+      }
+      return groups;
+    }
+
+    function renderWidget(data) {
+      const widget = document.getElementById('widget');
+
+      if (data.error && data.loans.length === 0) {
+        widget.innerHTML = `
+          <div class="error">
+            <svg class="error-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+            <div class="error-text">${data.error}</div>
+          </div>
+        `;
+        return;
+      }
+
+      const loans = data.loans || [];
+
+      if (loans.length === 0) {
+        widget.innerHTML = `
+          <div class="empty-state">
+            <svg viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>
+            <div class="empty-state-title">Geen uitleningen</div>
+            <div class="empty-state-text">Je hebt momenteel niets geleend.</div>
+          </div>
+        `;
+        return;
+      }
+
+      // Calculate stats
+      const minDays = Math.min(...loans.map(l => l.daysRemaining));
+      const overdueCount = loans.filter(l => l.daysRemaining < 0).length;
+      const urgentCount = loans.filter(l => l.daysRemaining >= 0 && l.daysRemaining <= 7).length;
+
+      // Determine min days styling
+      let minDaysClass = 'safe';
+      if (minDays < 0) minDaysClass = 'danger';
+      else if (minDays <= 7) minDaysClass = 'warning';
+
+      // Group loans by user
+      const groupedLoans = groupLoansByUser(loans);
+      const userNames = Object.keys(groupedLoans);
+
+      let loansHtml = '';
+
+      userNames.forEach((userName, groupIndex) => {
+        const userLoans = groupedLoans[userName];
+        loansHtml += `
+          <div class="loan-group">
+            ${userNames.length > 1 ? `
+              <div class="loan-group-header">
+                ${personIcon}
+                <span>${userName}</span>
+              </div>
+            ` : ''}
+            ${userLoans.map((loan, i) => {
+              const daysClass = getDaysClass(loan.daysRemaining);
+              const daysDisplay = Math.abs(loan.daysRemaining);
+              const daysText = loan.daysRemaining < 0 ? `${daysDisplay}d over` : `${daysDisplay}d`;
+
+              const coverHtml = loan.imageSrc
+                ? `<img src="${loan.imageSrc}" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">${getTypeIcon(loan.loanType)}`
+                : getTypeIcon(loan.loanType);
+
+              return `
+                <div class="loan" style="animation-delay: ${(groupIndex * userLoans.length + i) * 0.03}s">
+                  <div class="loan-cover">${coverHtml}</div>
+                  <div class="loan-info">
+                    <div class="loan-title">${loan.title}</div>
+                    <div class="loan-meta">
+                      ${loan.author ? `<span class="loan-author">${loan.author}</span>` : ''}
+                      <span class="loan-days ${daysClass}">${daysText}</span>
+                      ${!loan.isExtendable ? '<span class="loan-badge not-extendable">Niet verlengbaar</span>' : ''}
+                    </div>
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        `;
+      });
+
+      widget.innerHTML = `
+        <div class="header">
+          <div class="header-left">
+            <span>${loans.length} uitlening${loans.length !== 1 ? 'en' : ''}</span>
+          </div>
+          <div class="header-stats">
+            ${overdueCount > 0 ? `
+              <div class="header-stat danger">
+                ${overdueCount} te laat
+              </div>
+            ` : ''}
+            ${urgentCount > 0 ? `
+              <div class="header-stat warning">
+                ${urgentCount} dringend
+              </div>
+            ` : ''}
+            <div class="header-stat ${minDaysClass}">
+              ${minDays < 0 ? `${Math.abs(minDays)}d over` : `${minDays}d min`}
+            </div>
+          </div>
+        </div>
+        <div class="loans-container">
+          ${loansHtml}
+        </div>
+      `;
+    }
+
+    async function loadData() {
+      try {
+        const deviceIds = await Homey.getDeviceIds();
+
+        if (!deviceIds || deviceIds.length === 0) {
+          renderWidget({ error: 'Selecteer een apparaat', loans: [] });
+          return;
+        }
+
+        const deviceId = deviceIds[0];
+        const data = await Homey.api('GET', `/loans?deviceId=${encodeURIComponent(deviceId)}`);
+        renderWidget(data);
+      } catch (error) {
+        console.error('Failed to load data:', error);
+        renderWidget({ error: 'Kon gegevens niet laden', loans: [] });
+      }
+    }
+
+    function onHomeyReady(Homey) {
+      window.Homey = Homey;
+
+      const settings = Homey.getSettings();
+      const size = settings.size || 'medium';
+
+      if (size === 'large') {
+        Homey.ready({ height: 400 });
+      } else {
+        Homey.ready({ height: 250 });
+      }
+
+      loadData();
+      setInterval(loadData, 5 * 60 * 1000);
+    }
+  </script>
+</body>
+</html>

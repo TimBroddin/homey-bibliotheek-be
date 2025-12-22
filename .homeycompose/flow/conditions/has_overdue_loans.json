@@ -1,0 +1,18 @@
+{
+  "id": "has_overdue_loans",
+  "title": {
+    "en": "There !{{are|aren't}} overdue loans",
+    "nl": "Er !{{zijn|zijn geen}} te late uitleningen"
+  },
+  "hint": {
+    "en": "Check if there are any overdue loans (days remaining < 0)",
+    "nl": "Controleer of er te late uitleningen zijn (resterende dagen < 0)"
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=library-account"
+    }
+  ]
+}

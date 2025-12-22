@@ -1,0 +1,53 @@
+{
+  "id": "loan_expired",
+  "title": {
+    "en": "A loan is overdue",
+    "nl": "Een uitlening is te laat"
+  },
+  "hint": {
+    "en": "Triggers when any loan becomes overdue (days remaining < 0)",
+    "nl": "Wordt geactiveerd wanneer een uitlening te laat is"
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=library-account"
+    }
+  ],
+  "tokens": [
+    {
+      "type": "string",
+      "name": "book_title",
+      "title": {
+        "en": "Book Title",
+        "nl": "Boektitel"
+      },
+      "example": {
+        "en": "Harry Potter",
+        "nl": "Harry Potter"
+      }
+    },
+    {
+      "type": "number",
+      "name": "days_overdue",
+      "title": {
+        "en": "Days Overdue",
+        "nl": "Dagen te laat"
+      },
+      "example": 2
+    },
+    {
+      "type": "string",
+      "name": "library_name",
+      "title": {
+        "en": "Library",
+        "nl": "Bibliotheek"
+      },
+      "example": {
+        "en": "Gent",
+        "nl": "Gent"
+      }
+    }
+  ]
+}

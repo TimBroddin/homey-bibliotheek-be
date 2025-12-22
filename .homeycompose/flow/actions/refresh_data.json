@@ -1,0 +1,18 @@
+{
+  "id": "refresh_data",
+  "title": {
+    "en": "Refresh library data",
+    "nl": "Bibliotheekgegevens vernieuwen"
+  },
+  "hint": {
+    "en": "Force an immediate refresh of all library data",
+    "nl": "Forceer een directe vernieuwing van alle bibliotheekgegevens"
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=library-account"
+    }
+  ]
+}

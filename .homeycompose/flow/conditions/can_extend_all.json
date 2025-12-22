@@ -1,0 +1,18 @@
+{
+  "id": "can_extend_all",
+  "title": {
+    "en": "All loans !{{can|cannot}} be extended",
+    "nl": "Alle uitleningen !{{kunnen|kunnen niet}} verlengd worden"
+  },
+  "hint": {
+    "en": "Check if all current loans can be extended",
+    "nl": "Controleer of alle huidige uitleningen verlengd kunnen worden"
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=library-account"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "id": "user_has_expiring_loans",
+  "title": {
+    "en": "This user !{{has|doesn't have}} books expiring within [[days]] days",
+    "nl": "Deze gebruiker !{{heeft|heeft geen}} boeken die vervallen binnen [[days]] dagen"
+  },
+  "titleFormatted": {
+    "en": "This user !{{has|doesn't have}} books expiring within [[days]] days",
+    "nl": "Deze gebruiker !{{heeft|heeft geen}} boeken die vervallen binnen [[days]] dagen"
+  },
+  "hint": {
+    "en": "Check if this user has books expiring within the specified days",
+    "nl": "Controleer of deze gebruiker boeken heeft die vervallen binnen het aantal dagen"
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=library-user"
+    },
+    {
+      "type": "number",
+      "name": "days",
+      "title": {
+        "en": "Days",
+        "nl": "Dagen"
+      },
+      "min": 1,
+      "max": 30,
+      "step": 1
+    }
+  ]
+}
